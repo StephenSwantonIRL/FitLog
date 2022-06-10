@@ -1,0 +1,33 @@
+{{> menu active="addPlace"}}
+
+<section class="section header">
+  <h1 class="title">Edit a Food</h1>
+</section><section class="section">
+  <form action="/addFood" method="POST">
+    <div class="field">
+      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" name="name">
+    </div>
+    <div class="field">
+      <label class="label">Amount</label> <input class="input" type="text" placeholder="Enter A Standard Portion Amount" name="amount">
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+         <b>Protein:</b> <input class="input" type="text" placeholder="Enter Grams Protein" name="protein">
+        </div>
+        <div class="field">
+         <b>Carbohydrate:</b> <input class="input" type="text" placeholder="Enter Grams Carbs" name="carbs">
+        </div>
+        <div class="field">
+         <b>Fat:</b> <input class="input" type="text" placeholder="Enter Grams Fat" name="fat">
+        </div>
+        <div class="field">
+         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie">
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <button id="submit" class="button is-link">Add Food Details</button>
+    </div>
+  </form>
+</section>

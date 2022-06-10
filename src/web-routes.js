@@ -1,7 +1,9 @@
 import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 /*import { dashboardController } from "./controllers/dashboard-controller.js";
-import { placeController } from "./controllers/placemark-controller.js";*/
+*/
+import { foodController } from "./controllers/food-controller.js";
+
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -12,12 +14,16 @@ export const webRoutes = [
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "POST", path: "/updateUser", config: accountsController.update },
   { method: "GET", path: "/editAccount", config: accountsController.edit },
+
+  { method: "GET", path: "/addFood", config:  foodController.add },
+  { method: "POST", path: "/addFood", config: foodController.save },
+  { method: "GET", path: "/editFood/{id}", config: foodController.edit },
+  { method: "POST", path: "/editFood/{id}", config: foodController.saveEdited },
+
 /*
-  { method: "GET", path: "/addPlace", config: placeController.add },
-  { method: "GET", path: "/editPlace/{id}", config: placeController.edit },
-  { method: "POST", path: "/editPlace/{id}", config: placeController.saveEdited },
+
   { method: "GET", path: "/deletePlace/{id}", config: placeController.delete },
-  { method: "POST", path: "/addPlace", config: placeController.save },
+
   { method: "GET", path: "/getPlace/{id}", config: placeController.findOne },
   { method: "POST", path: "/place/uploadimage", config: placeController.uploadImage },
 
