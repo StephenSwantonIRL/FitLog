@@ -1,0 +1,29 @@
+<section class="section">
+  <h2 class="title is-4">User Management</h2>
+  <form id="category" method="POST" >
+  <table class="table" style="width: 100%">
+    <thead>
+    <th>Name</th>
+    <th></th>
+    </thead>
+    <tbody>
+    {{# each users}}
+      <tr>
+        <td id="{{_id}}">{{firstName}} {{lastName}}</td>
+        <td>
+          {{#if isAdmin }}<a id="button-{{_id}}" class="button is-small" href="/revokeAdmin/{{_id}}">
+            Revoke Admin
+          </a> {{else}}
+  <a id="button-{{_id}}" class="button is-small" href="/makeAdmin/{{_id}}">
+    Make Admin
+  </a>
+{{/if}}
+          <a class="button is-small" href="/deleteUser/{{_id}}">
+          Delete
+        </a></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  </form>
+</section>

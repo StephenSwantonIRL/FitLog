@@ -1,0 +1,121 @@
+{{> menu active="dashboard"}}
+
+<section class="section header">
+  <h1 class="title is-3">Dashboard</h1>
+</section>
+{{> category-buttons }}
+<section class="section">
+  <h2 class="title is-4">My PlaceMarks</h2>
+  <table class="table" style="width: 100%">
+    <thead>
+      <th>Name</th>
+      <th>Location</th>
+      <th>Lat</th>
+      <th>Long</th>
+      <th></th>
+    </thead>
+    <tbody>
+    {{# each myPlaceMarks}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{location}}</td>
+        <td>{{latitude}}</td>
+        <td>{{longitude}}</td>
+        <td><button class="button is-small" onclick="openModal('{{_id}}')">
+          View
+        </button> <a class="button is-small" href="/editPlace/{{_id}}">
+          Edit
+        </a> <a class="button is-small" href="/deletePlace/{{_id}}">
+          Delete
+        </a>
+        </td>
+      </tr>
+      {{/each}}
+    </tbody>
+  </table>
+</section>
+<section class="section">
+  <h2 class="title is-4">All PlaceMarks</h2>
+  <table class="table" style="width: 100%">
+    <thead>
+    <th>Name</th>
+    <th>Location</th>
+    <th>Lat</th>
+    <th>Long</th>
+    <th></th>
+    </thead>
+    <tbody>
+    {{# each othersPlaceMarks}}
+      <tr>
+        <td>{{name}}</td>
+        <td>{{location}}</td>
+        <td>{{latitude}}</td>
+        <td>{{longitude}}</td>
+        <td><button class="button is-small" onclick="openModal('{{_id}}')">
+          View
+        </button></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+</section>
+<dialog id="modal-dialog">
+  <section class="section header"><h2 class="title is-2" id="placeMarkName"></h2></section>
+  <div class="container"><div class="label">Location</div><div><h4 id="placeMarkLocation"></h4></div></div>
+  <div class="container">
+    <div class="label">Latitude</div><div><p id="placeMarkLatitude"></p></div>
+    <div><div><div class="label">Longitude</div><div><p id="placeMarkLongitude"></p></div></div></div>
+  </div>
+  <div class="container"><h4 class="title is-4" style="padding-top:10px">About this PlaceMark</h4></div>
+  <div class="container" id="placeMarkDescription"></div>
+  <div class="container" id="placeMarkCategories"></div>
+  <div class="container" id="placeMarkImages" style="padding-top:10px;"></div>
+  <p><a onclick="closeModal()">Close</a></p>
+</dialog>
+
+<script>
+
+  function openModal(id) {
+    let apiCall = window.location.protocol+"//"+window.location.hostname+':'+window.location.port+"/getPlace/"+id
+    fetch(apiCall, {credentials : "include"})
+      .then(data => {
+        return data.json()
+      })
+    .then(placeMark => {
+        console.log(placeMark)
+        console.log(placeMark.name)
+        document.getElementById('placeMarkName').innerText = placeMark.name;
+        document.getElementById('placeMarkLocation').innerText = placeMark.location;
+        document.getElementById('placeMarkLatitude').innerText = placeMark.latitude;
+        document.getElementById('placeMarkLongitude').innerText = placeMark.longitude;
+        document.getElementById('placeMarkDescription').innerHTML = placeMark.description;
+
+        if (placeMark.categories.length > 0) {
+          let categories = ""
+          for (let i = 0; i < placeMark.categories.length; i += 1) {
+            categories = categories.concat(placeMark.categories[i].name)
+            if( i < (placeMark.categories.length-1)){
+              categories = categories.concat(", ")
+            }
+          }
+          document.getElementById('placeMarkCategories').innerHTML = "<strong>Categories:</strong> " + categories;
+        }
+        if (placeMark.images.length > 0){
+          for (let i = 0; i< placeMark.images.length; i += 1){
+            var img1 = document.createElement("img");
+            img1.setAttribute("src", placeMark.images[i])
+            img1.setAttribute("id", placeMark.images[i])
+            img1.setAttribute("max-width","50%")
+            img1.setAttribute("style", "padding-left:10px; max-height:200px; border:solid 1px #B1A727")
+            document.getElementById('placeMarkImages').append(img1)
+          }
+        }
+        document.querySelector("#modal-dialog").showModal();
+      })
+  }
+  function closeModal(){
+    document.querySelector("#modal-dialog").close();
+    document.getElementById('placeMarkImages').innerHTML ="";
+  }
+
+</script>

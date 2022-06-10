@@ -1,0 +1,54 @@
+<section class="section">
+  <h2 class="title is-5">All Categories</h2>
+  <form id="category" method="POST" >
+  <table class="table" style="width: 100%">
+    <thead>
+    <th>Name</th>
+    <th></th>
+    </thead>
+    <tbody>
+    {{# each categories}}
+      <tr>
+        <td id="{{_id}}">{{name}}</td>
+        <td>
+          <a class="button is-small" href="/category/{{_id}}"> View </a>
+          <a id="button-{{_id}}" class="button is-small" onclick="editCategory('{{_id}}')">
+          Edit
+        </a> <a class="button is-small" href="/deleteCategory/{{_id}}">
+          Delete
+        </a></td>
+      </tr>
+    {{/each}}
+    </tbody>
+  </table>
+  </form>
+</section>
+
+<script>
+  var originalText, editing, editableInput, editableContainer, editButton, inputElement
+  function editCategory(id) {
+    if (document.getElementsByClassName("input editable").length > 0) {
+      editableInput = document.getElementsByClassName("editable");
+      editableContainer = document.getElementById(editableInput[0].id);
+      editableContainer.innerHTML = originalText;
+      editButton.setAttribute("onclick", "editCategory('" + editing + "')");
+      editButton.innerText = "Edit";
+    }
+    editableContainer = document.getElementById(id)
+    inputElement = document.createElement('input')
+    inputElement.setAttribute('name', 'name')
+    inputElement.setAttribute('id', id)
+    inputElement.setAttribute('type', 'text')
+    inputElement.setAttribute('class', 'input editable')
+    originalText = editableContainer.innerText
+    inputElement.setAttribute('value', originalText)
+    editableContainer.innerHTML = ""
+    editableContainer.appendChild(inputElement)
+    editButton = document.getElementById('button-' + id);
+    editButton.setAttribute('onclick', 'document.getElementById(\'category\').submit()')
+    editButton.innerText = 'Save'
+    document.getElementById('category').setAttribute('action', '/editCategory/' + id)
+    editing = id
+  }
+
+</script>

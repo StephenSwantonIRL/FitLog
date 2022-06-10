@@ -1,0 +1,20 @@
+NAV.navbar
+{
+    border-bottom: 3px solid #E4DD87 !important;
+}
+DIV.container SECTION.section.header
+{
+    background: url(/header2.png) center right / auto no-repeat;
+}
+#submit.button
+{
+    background-color: #B1A727;
+}
+SECTION.header .title
+{
+    color: white;
+}
+.is-primary
+{
+    background: #B1A727 !important;
+}

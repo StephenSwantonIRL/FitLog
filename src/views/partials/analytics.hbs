@@ -1,0 +1,25 @@
+<section class="section">
+  <h4 class="is-4 title">Site Statistics</h4>
+  <div class="columns">
+    <div class="column">
+      <h5 class="title is-5">Totals</h5>
+
+        <li>Categories: {{totalCategories}}</li>
+        <li>Users: {{totalUsers}}</li>
+        <li>Places: {{totalPlaces}}</li>
+
+    </div>
+    <div class="column">
+      <h5 class="title is-5">Averages</h5>
+      <li>Places per Category: {{avgPerCategory}}</li>
+      <li>Places per User: {{avgPerUser}}</li>
+    </div>
+    <div class="column">
+      <h5 class="title is-5">Top Contributors</h5>
+      {{# each topCounts}}
+        <li>{{firstName}} {{lastName}}: {{count}} places</li>
+      {{/each}}
+
+    </div>
+  </div>
+</section>
