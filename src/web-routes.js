@@ -3,6 +3,7 @@ import { accountsController } from "./controllers/accounts-controller.js";
 /*import { dashboardController } from "./controllers/dashboard-controller.js";
 */
 import { foodController } from "./controllers/food-controller.js";
+import { allowanceController } from "./controllers/allowance-controller.js";
 
 
 export const webRoutes = [
@@ -19,6 +20,11 @@ export const webRoutes = [
   { method: "POST", path: "/addFood", config: foodController.save },
   { method: "GET", path: "/editFood/{id}", config: foodController.edit },
   { method: "POST", path: "/editFood/{id}", config: foodController.saveEdited },
+
+  { method: "GET", path: "/addDiet", config:  allowanceController.add },
+  { method: "POST", path: "/addDiet", config: allowanceController.save },
+  { method: "GET", path: "/editDiet/{id}", config: allowanceController.edit },
+  { method: "POST", path: "/editDiet/{id}", config: allowanceController.saveEdited },
 
 /*
 

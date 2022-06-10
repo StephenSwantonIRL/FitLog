@@ -1,0 +1,31 @@
+<section class="section header">
+  <h1 class="title">Edit Daily Allowance</h1>
+</section><section class="section">
+  <form action="/editDiet/{{allowance._id}}" method="POST">
+    <div class="field">
+      <label class="label">Start Date</label> <input class="input" type="date" placeholder="Enter Start Date" name="startDate" value="{{allowance.startDate}}">
+    </div>
+    <div class="field">
+      <label class="label">End Date</label> <input class="input" type="date" placeholder="Enter End Date" name="endDate" value="{{allowance.endDate}}">
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+         <b>Protein:</b> <input class="input" type="text" placeholder="Enter Grams Protein" name="protein" value="{{allowance.protein}}">
+        </div>
+        <div class="field">
+         <b>Carbohydrate:</b> <input class="input" type="text" placeholder="Enter Grams Carbs" name="carbs" value="{{allowance.carbs}}">
+        </div>
+        <div class="field">
+         <b>Fat:</b> <input class="input" type="text" placeholder="Enter Grams Fat" name="fat" value="{{allowance.fat}}">
+        </div>
+        <div class="field">
+         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie" value="{{allowance.veggie}}">
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <button id="submit" class="button is-link">Edit Diet Details</button>
+    </div>
+  </form>
+</section>

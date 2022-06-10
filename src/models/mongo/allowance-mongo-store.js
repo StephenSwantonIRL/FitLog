@@ -21,7 +21,7 @@ export const allowanceMongoStore = {
   },
 
   async updateAllowance(id, updatedAllowance) {
-    await Food.updateOne(
+    await Allowance.updateOne(
       { _id: id },
       {
         startDate: updatedAllowance.startDate,
