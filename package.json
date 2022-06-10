@@ -17,6 +17,7 @@
     "@hapi/inert": "^6.0.5",
     "@hapi/vision": "^6.1.0",
     "axios": "^0.26.0",
+    "bcrypt": "^5.0.1",
     "bulma": "^0.9.3",
     "chai-as-promised": "^7.1.1",
     "chai-http": "^4.3.0",

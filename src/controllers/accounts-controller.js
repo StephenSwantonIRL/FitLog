@@ -1,5 +1,8 @@
 import { UserSpec, UserCredentialsSpec } from "../models/joi-schemas.js";
 import { db } from "../models/db.js";
+import bcrypt from "bcrypt";
+
+const saltRounds = 10;
 
 export const accountsController = {
   index: {
@@ -26,6 +29,7 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const user = request.payload;
+      user.password = await bcrypt.hash(user.password, saltRounds);
       const addUser = await db.userStore.addUser(user);
       if (addUser.message) {
         const errorDetails = [{ message: addUser.message }];
@@ -55,7 +59,8 @@ export const accountsController = {
       console.log(email);
       const user = await db.userStore.getUserByEmail(email);
       console.log(user);
-      if (!user || user.password !== password) {
+      const passwordsMatch = await bcrypt.compare(password, user.password);
+      if (!user || !passwordsMatch) {
         return h.redirect("/");
       }
       request.cookieAuth.set({ id: user._id });
@@ -72,7 +77,7 @@ export const accountsController = {
 
   edit: {
     handler: async function (request, h) {
-      const currentUserId = request.state.placemark.id;
+      const currentUserId = request.state.fitlog.id;
       if (!currentUserId){
         return h.redirect("/");
       }
@@ -93,7 +98,7 @@ export const accountsController = {
     },
     handler: async function (request, h) {
       const updatedUser = request.payload;
-      const userId = request.state.placemark.id;
+      const userId = request.state.fitlog.id;
       const updateUser = await db.userStore.updateUser(userId, updatedUser);
       if (updateUser.message) {
         const errorDetails = [{ message: updateUser.message }];

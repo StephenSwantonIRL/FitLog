@@ -5,12 +5,9 @@ import Inert from "@hapi/inert";
 import dotenv from "dotenv";
 import path from "path";
 import Joi from "joi";
-import jwt from "hapi-auth-jwt2";
-import { validate } from "../api/jwt-utils.js";
 import { fileURLToPath } from "url";
 import Handlebars from "handlebars";
 import { webRoutes } from "./web-routes.js";
-import { apiRoutes } from "./api-routes.js"
 import { db } from "./models/db.js";
 import { accountsController } from "./controllers/accounts-controller.js";
 import HapiSwagger from "hapi-swagger";
@@ -48,7 +45,6 @@ async function init() {
   await server.register(Vision);
   await server.register(Cookie);
   await server.register(Inert);
-  await server.register(jwt);
   await server.register([
     Inert,
     Vision,
@@ -81,17 +77,10 @@ async function init() {
     validateFunc: accountsController.validate,
   });
 
-  server.auth.strategy("jwt", "jwt", {
-    key: process.env.cookie_password,
-    validate: validate,
-    verifyOptions: { algorithms: ["HS256"] },
-  });
-
   server.auth.default("session");
 
-  db.init("fire");
+  db.init("mongo");
   server.route(webRoutes);
-  server.route(apiRoutes);
   await server.start();
   console.log("Server running on %s", server.info.uri);
 }

@@ -1,7 +1,7 @@
 import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
-import { dashboardController } from "./controllers/dashboard-controller.js";
-import { placeController } from "./controllers/placemark-controller.js";
+/*import { dashboardController } from "./controllers/dashboard-controller.js";
+import { placeController } from "./controllers/placemark-controller.js";*/
 
 export const webRoutes = [
   { method: "GET", path: "/", config: accountsController.index },
@@ -12,7 +12,7 @@ export const webRoutes = [
   { method: "POST", path: "/authenticate", config: accountsController.login },
   { method: "POST", path: "/updateUser", config: accountsController.update },
   { method: "GET", path: "/editAccount", config: accountsController.edit },
-
+/*
   { method: "GET", path: "/addPlace", config: placeController.add },
   { method: "GET", path: "/editPlace/{id}", config: placeController.edit },
   { method: "POST", path: "/editPlace/{id}", config: placeController.saveEdited },
@@ -31,6 +31,6 @@ export const webRoutes = [
   { method: "GET", path: "/category/{id}", config: placeController.viewByCategory },
   { method: "POST", path: "/addCategory", config: dashboardController.addCategory },
   { method: "GET", path: "/deleteCategory/{id}", config: dashboardController.deleteCategory },
-  { method: "POST", path: "/editCategory/{id}", config: dashboardController.editCategory },
+  { method: "POST", path: "/editCategory/{id}", config: dashboardController.editCategory },*/
   { method: "GET", path: "/{param*}", handler: { directory: { path: "../public" } }, options: { auth: false } }
 ];
