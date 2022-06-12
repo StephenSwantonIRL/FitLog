@@ -3,59 +3,30 @@
 <section class="section header">
   <h1 class="title is-3">Dashboard</h1>
 </section>
-{{> category-buttons }}
 <section class="section">
-  <h2 class="title is-4">My PlaceMarks</h2>
+  <h2 class="title is-4">Daily Allowance</h2>
   <table class="table" style="width: 100%">
     <thead>
-      <th>Name</th>
-      <th>Location</th>
-      <th>Lat</th>
-      <th>Long</th>
+      <th>Protein</th>
+      <th>Carbs</th>
+      <th>Fat</th>
+      <th>Veggies</th>
       <th></th>
     </thead>
     <tbody>
-    {{# each myPlaceMarks}}
       <tr>
-        <td>{{name}}</td>
-        <td>{{location}}</td>
-        <td>{{latitude}}</td>
-        <td>{{longitude}}</td>
-        <td><button class="button is-small" onclick="openModal('{{_id}}')">
-          View
-        </button> <a class="button is-small" href="/editPlace/{{_id}}">
+        <td>{{allowance.protein}}</td>
+        <td>{{allowance.carbs}}</td>
+        <td>{{allowance.fat}}</td>
+        <td>{{allowance.veggie}}</td>
+        <td>
+          <a class="button is-small" href="/editDiet/{{allowance._id}}">
           Edit
-        </a> <a class="button is-small" href="/deletePlace/{{_id}}">
+        </a> <a class="button is-small" href="/deleteDiet/{{allowance._id}}">
           Delete
         </a>
         </td>
       </tr>
-      {{/each}}
-    </tbody>
-  </table>
-</section>
-<section class="section">
-  <h2 class="title is-4">All PlaceMarks</h2>
-  <table class="table" style="width: 100%">
-    <thead>
-    <th>Name</th>
-    <th>Location</th>
-    <th>Lat</th>
-    <th>Long</th>
-    <th></th>
-    </thead>
-    <tbody>
-    {{# each othersPlaceMarks}}
-      <tr>
-        <td>{{name}}</td>
-        <td>{{location}}</td>
-        <td>{{latitude}}</td>
-        <td>{{longitude}}</td>
-        <td><button class="button is-small" onclick="openModal('{{_id}}')">
-          View
-        </button></td>
-      </tr>
-    {{/each}}
     </tbody>
   </table>
 </section>

@@ -1,9 +1,8 @@
 import { aboutController } from "./controllers/about-controller.js";
 import { accountsController } from "./controllers/accounts-controller.js";
-/*import { dashboardController } from "./controllers/dashboard-controller.js";
-*/
 import { foodController } from "./controllers/food-controller.js";
 import { allowanceController } from "./controllers/allowance-controller.js";
+import { dashboardController } from "./controllers/dashboard-controller.js";
 
 
 export const webRoutes = [
@@ -26,6 +25,10 @@ export const webRoutes = [
   { method: "GET", path: "/editDiet/{id}", config: allowanceController.edit },
   { method: "POST", path: "/editDiet/{id}", config: allowanceController.saveEdited },
 
+  { method: "GET", path: "/dashboard", config: dashboardController.index },
+  { method: "GET", path: "/logFood", config:  dashboardController.log },
+  { method: "POST", path: "/logFood", config: dashboardController.saveLog},
+
 /*
 
   { method: "GET", path: "/deletePlace/{id}", config: placeController.delete },
@@ -35,7 +38,7 @@ export const webRoutes = [
 
   { method: "GET", path: "/about", config: aboutController.index },
 
-  { method: "GET", path: "/dashboard", config: dashboardController.index },
+
   { method: "GET", path: "/admin", config: dashboardController.admin },
   { method: "GET", path: "/makeAdmin/{id}", config: dashboardController.makeAdmin },
   { method: "GET", path: "/revokeAdmin/{id}", config: dashboardController.revokeAdmin },

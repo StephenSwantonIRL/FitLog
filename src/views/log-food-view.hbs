@@ -1,0 +1,46 @@
+{{> menu active="addPlace"}}
+
+<section class="section header">
+  <h1 class="title">Log a Food</h1>
+</section><section class="section">
+  <form action="/logFood" method="POST">
+    <h2 class="is-title is-3"> Search Food Library</h2><br>
+    <div class="field is-horizontal">
+      <div class="field-body">
+    <div class="field">
+
+      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" id="searchValue">
+    </div>
+    <div class="field">
+      <label class="label">Quantity</label> <input class="input" type="number" placeholder="Enter multiple of standard portion" id="quantity">
+    </div>
+      </div>
+    </div>
+    <a class="button is-small" onclick="search()">
+      Search
+    </a>
+    <h2 class="is-title is-3"> <br> ...or enter custom values </h2><br>
+    <div class="field">
+      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" name="name">
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+         <b>Protein:</b> <input class="input" type="text" placeholder="Enter Grams Protein" name="protein" id="protein">
+        </div>
+        <div class="field">
+         <b>Carbohydrate:</b> <input class="input" type="text" placeholder="Enter Grams Carbs" name="carbs" id="carbs">
+        </div>
+        <div class="field">
+         <b>Fat:</b> <input class="input" type="text" placeholder="Enter Grams Fat" name="fat" id="fat">
+        </div>
+        <div class="field">
+         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie" id="veggienpm">
+        </div>
+      </div>
+    </div>
+    <div class="field is-grouped">
+      <button id="submit" class="button is-link">Log</button>
+    </div>
+  </form>
+</section>

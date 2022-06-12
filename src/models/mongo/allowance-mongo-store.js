@@ -42,6 +42,11 @@ export const allowanceMongoStore = {
     return allowances;
   },
 
+  async getActiveAllowance(id){
+    const allowances = await Allowance.find({startDate: { $gte: new Date()}}).lean();
+    return allowances;
+  },
+
 
   async deleteAllowanceById(id, userId) {
     const allowanceInDb = await this.getAllowanceById(id);

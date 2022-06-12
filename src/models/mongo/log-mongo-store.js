@@ -2,7 +2,7 @@
 import _ from "lodash";
 import { DailyLog } from "./dailyLog.js";
 import { foodMongoStore } from "./food-mongo-store.js";
-
+import mongoose from "mongoose";
 
 export const logMongoStore = {
   async getAllLogs() {
@@ -21,22 +21,21 @@ export const logMongoStore = {
   async addDay(date) { //nb takes a string
     const newDay = {};
     newDay.date = date;
-    const operation = new DailyLog(newCategory);
+    const operation = new DailyLog(newDay);
     const returnedDay = await operation.save();
     return this.getLogById(returnedDay._id);
   },
 
-  async addFood(id, logId, quantity) {
-    if (!id || !logId || !quantity) {
+  async addFood(logId, food) {
+    if (!logId || !food ) {
       return new Error("Incomplete information provided");
     } else {
       const log = await this.getLogById(logId);
-      const food = await foodMongoStore.getFoodById(id);
-      if (log === null || food === null) {
-        return new Error("Unable to find DailyLog or Food item");
+      if (log === null) {
+        return new Error("Unable to find Log");
       } else {
-        await DailyLog.updateOne({ _id: logId }, { foods: {$push: { id: id, quantity: quantity } }});
-        const outcome = await this.getLogById(logId);
+        await DailyLog.updateOne({ _id: logId._id },  {$push: { foods: food }});
+        const outcome = await this.getLogById(logId._id);
         return outcome;
       }
     }
@@ -44,15 +43,8 @@ export const logMongoStore = {
 
 
   async getFoods(id) {
-    const log = await DailyLog.find({ _id: id }).lean();
-    const f = [];
-    // eslint-disable-next-line no-plusplus
-    for (let i = 0; i < log[0].foods.length; i++) {
-      // eslint-disable-next-line no-await-in-loop
-      const fd = await foodMongoStore.getfoodById(log[0].foods[i]);
-      f.push(fd);
-    }
-    return f;
+    const log = await DailyLog.findOne({ _id: id }).lean();
+    return log.foods;
   },
 
   async getLogByDate(date) {
@@ -66,7 +58,7 @@ export const logMongoStore = {
     } else {
       const log = await this.getLogById(logId);
       if (log === null) {
-        return new Error("Unable to find Category");
+        return new Error("Unable to find Log");
       } else {
         await DailyLog.updateOne({ _id: logId }, { $pull: { foods: { $in: foodId } } });  // need to fix this query
         const updatedLog = await this.getLogById(logId);
