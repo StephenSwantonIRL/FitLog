@@ -19,11 +19,22 @@ export const dashboardController = {
         userId = request.state.fitlog.id
       }
       const activeAllowance = await db.allowanceStore.getActiveAllowance(userId);
-      console.log(activeAllowance);
+      const date = midnight(new Date);
+      const todaysFoods = await db.logStore.getUserFoodsByDate(userId,date);
+      let usersFoods;
+      if(todaysFoods[0]) {
+        usersFoods = todaysFoods[0].foods.filter((food => food.user == userId));
+        for ( let i= 0; i< usersFoods.length; i +=1){
+          usersFoods[i].logId = todaysFoods[0]._id;
+        }
+      } else {
+        usersFoods = [];
+      }
       const viewData = {
         title: "FitLog Dashboard",
         user: loggedInUser,
         allowance: activeAllowance[0],
+        usersFoods: usersFoods,
       };
       console.log(viewData);
       return h.view("dashboard-view", viewData);
@@ -45,9 +56,16 @@ export const dashboardController = {
         },*/
     handler: async function (request, h) {
       const date = midnight(new Date());
+      const loggedInUser = request.auth.credentials;
+      let userId
+      if (db.userStore === userMongoStore) {
+        userId = mongoose.Types.ObjectId(request.state.fitlog.id)
+      } else {
+        userId = request.state.fitlog.id
+      }
       let logId = await db.logStore.getLogByDate(date);
       if(!logId){
-        await db.logStore.addDay(date)
+        await db.logStore.addDay(date, userId)
           .then(async () => logId = await db.logStore.getLogByDate(date));
       }
       //add log to today's date
@@ -61,4 +79,14 @@ export const dashboardController = {
       return h.redirect("/dashboard");
     },
   },
+
+  deleteLog: {
+    handler: async function (request, h) {
+      const foodId = request.params.foodId;
+      const logId = request.params.logId;
+      await db.logStore.deleteFood(foodId, logId);
+      return h.redirect("/dashboard");
+    },
+  },
+
 }

@@ -43,7 +43,8 @@ export const allowanceMongoStore = {
   },
 
   async getActiveAllowance(id){
-    const allowances = await Allowance.find({startDate: { $gte: new Date()}}).lean();
+    //this needs to be modified to find
+    const allowances = await Allowance.find({startDate: { $lte: new Date()}, $or: [ { endDate: null }, { endDate: {$gte: new Date() }} ], user: id}).lean();
     return allowances;
   },
 

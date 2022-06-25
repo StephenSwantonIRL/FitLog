@@ -18,9 +18,10 @@ export const logMongoStore = {
     return null;
   },
 
-  async addDay(date) { //nb takes a string
+  async addDay(date, userId) { //nb takes date as a string
     const newDay = {};
     newDay.date = date;
+    newDay.user = userId;
     const operation = new DailyLog(newDay);
     const returnedDay = await operation.save();
     return this.getLogById(returnedDay._id);
@@ -42,6 +43,12 @@ export const logMongoStore = {
   },
 
 
+  async getUserFoodsByDate(userId,date) {
+    const logs = await DailyLog.find({date: date, user: userId}).lean();
+    return logs;
+
+  },
+
   async getFoods(id) {
     const log = await DailyLog.findOne({ _id: id }).lean();
     return log.foods;
@@ -60,7 +67,7 @@ export const logMongoStore = {
       if (log === null) {
         return new Error("Unable to find Log");
       } else {
-        await DailyLog.updateOne({ _id: logId }, { $pull: { foods: { $in: foodId } } });  // need to fix this query
+        await DailyLog.updateOne({ _id: logId}, { $pull: { foods: { _id: foodId } } });
         const updatedLog = await this.getLogById(logId);
         return updatedLog;
       }

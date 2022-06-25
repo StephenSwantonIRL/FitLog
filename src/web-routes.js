@@ -28,6 +28,7 @@ export const webRoutes = [
   { method: "GET", path: "/dashboard", config: dashboardController.index },
   { method: "GET", path: "/logFood", config:  dashboardController.log },
   { method: "POST", path: "/logFood", config: dashboardController.saveLog},
+  { method: "GET", path: "/deleteLog/{logId}/{foodId}", config: dashboardController.deleteLog },
 
 /*
 

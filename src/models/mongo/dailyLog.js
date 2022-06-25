@@ -13,7 +13,11 @@ const logSchema = new Schema({
       veggie: String,
       user: String,
     }
-  ]
+  ],
+  user: {
+    type: Schema.Types.ObjectId,
+    ref: "User",
+  },
 });
 
 export const DailyLog = Mongoose.model("Daily Log", logSchema);
