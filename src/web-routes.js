@@ -29,24 +29,27 @@ export const webRoutes = [
   { method: "GET", path: "/logFood", config:  dashboardController.log },
   { method: "POST", path: "/logFood", config: dashboardController.saveLog},
   { method: "GET", path: "/deleteLog/{logId}/{foodId}", config: dashboardController.deleteLog },
-
-/*
-
-  { method: "GET", path: "/deletePlace/{id}", config: placeController.delete },
-
-  { method: "GET", path: "/getPlace/{id}", config: placeController.findOne },
-  { method: "POST", path: "/place/uploadimage", config: placeController.uploadImage },
-
-  { method: "GET", path: "/about", config: aboutController.index },
+  { method: "GET", path: "/editLog/{logId}/{foodId}", config: dashboardController.editLog },
+  { method: "POST", path: "/editLog/{logId}/{foodId}", config: dashboardController.updateLog },
 
 
-  { method: "GET", path: "/admin", config: dashboardController.admin },
-  { method: "GET", path: "/makeAdmin/{id}", config: dashboardController.makeAdmin },
-  { method: "GET", path: "/revokeAdmin/{id}", config: dashboardController.revokeAdmin },
-  { method: "GET", path: "/deleteUser/{id}", config: dashboardController.deleteUser },
-  { method: "GET", path: "/category/{id}", config: placeController.viewByCategory },
-  { method: "POST", path: "/addCategory", config: dashboardController.addCategory },
-  { method: "GET", path: "/deleteCategory/{id}", config: dashboardController.deleteCategory },
-  { method: "POST", path: "/editCategory/{id}", config: dashboardController.editCategory },*/
+  /*
+
+    { method: "GET", path: "/deletePlace/{id}", config: placeController.delete },
+
+    { method: "GET", path: "/getPlace/{id}", config: placeController.findOne },
+    { method: "POST", path: "/place/uploadimage", config: placeController.uploadImage },
+
+    { method: "GET", path: "/about", config: aboutController.index },
+
+
+    { method: "GET", path: "/admin", config: dashboardController.admin },
+    { method: "GET", path: "/makeAdmin/{id}", config: dashboardController.makeAdmin },
+    { method: "GET", path: "/revokeAdmin/{id}", config: dashboardController.revokeAdmin },
+    { method: "GET", path: "/deleteUser/{id}", config: dashboardController.deleteUser },
+    { method: "GET", path: "/category/{id}", config: placeController.viewByCategory },
+    { method: "POST", path: "/addCategory", config: dashboardController.addCategory },
+    { method: "GET", path: "/deleteCategory/{id}", config: dashboardController.deleteCategory },
+    { method: "POST", path: "/editCategory/{id}", config: dashboardController.editCategory },*/
   { method: "GET", path: "/{param*}", handler: { directory: { path: "../public" } }, options: { auth: false } }
 ];

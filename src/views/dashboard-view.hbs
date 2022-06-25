@@ -15,9 +15,9 @@
     </thead>
     <tbody>
       <tr>
-        <td>{{allowance.protein}}</td>
-        <td>{{allowance.carbs}}</td>
-        <td>{{allowance.fat}}</td>
+        <td>{{allowance.protein}}g</td>
+        <td>{{allowance.carbs}}g</td>
+        <td>{{allowance.fat}}g</td>
         <td>{{allowance.veggie}}</td>
         <td>
           <a class="button is-small" href="/editDiet/{{allowance._id}}">
@@ -27,6 +27,29 @@
         </a>
         </td>
       </tr>
+    </tbody>
+  </table>
+</section>
+
+<section class="section">
+  <h2 class="title is-4">Remaining Macros</h2>
+  <table class="table" style="width: 100%">
+    <thead>
+    <th>Protein</th>
+    <th>Carbs</th>
+    <th>Fat</th>
+    <th>Veggies</th>
+    <th></th>
+    </thead>
+    <tbody>
+    <tr>
+      <td>{{remaining.protein}}g</td>
+      <td>{{remaining.carbs}}g</td>
+      <td>{{remaining.fat}}g</td>
+      <td></td>
+      <td>
+      </td>
+    </tr>
     </tbody>
   </table>
 </section>
@@ -46,9 +69,9 @@
     <tr>
       {{#each usersFoods}}
       <td>{{name}}</td>
-      <td>{{protein}}</td>
-      <td>{{carbs}}</td>
-      <td>{{fat}}</td>
+      <td>{{protein}}g</td>
+      <td>{{carbs}}g</td>
+      <td>{{fat}}g</td>
       <td>{{veggie}}</td>
       <td>
         <a class="button is-small" href="/editLog/{{logId}}/{{_id}}">

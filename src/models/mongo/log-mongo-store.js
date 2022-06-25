@@ -35,6 +35,8 @@ export const logMongoStore = {
       if (log === null) {
         return new Error("Unable to find Log");
       } else {
+        console.log("Log Id")
+        console.log(logId._id)
         await DailyLog.updateOne({ _id: logId._id },  {$push: { foods: food }});
         const outcome = await this.getLogById(logId._id);
         return outcome;

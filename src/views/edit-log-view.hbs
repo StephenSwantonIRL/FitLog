@@ -1,0 +1,33 @@
+{{> menu active="addPlace"}}
+
+<section class="section header">
+  <h1 class="title">Log a Food</h1>
+</section><section class="section">
+  <form action="/editLog/{{logId}}/{{foodId}}" method="POST">
+    <h2 class="is-title is-3"> Edit</h2><br>
+    <div class="field">
+
+      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" name="name" value="{{food.name}}">
+    </div>
+    <div class="field is-horizontal">
+      <div class="field-body">
+        <div class="field">
+         <b>Protein:</b> <input class="input" type="text" placeholder="Enter Grams Protein" name="protein" id="protein" value="{{food.protein}}">
+        </div>
+        <div class="field">
+         <b>Carbohydrate:</b> <input class="input" type="text" placeholder="Enter Grams Carbs" name="carbs" id="carbs" value="{{food.carbs}}">
+        </div>
+        <div class="field">
+         <b>Fat:</b> <input class="input" type="text" placeholder="Enter Grams Fat" name="fat" id="fat" value="{{food.fat}}">
+        </div>
+        <div class="field">
+         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie" id="veggie" value="{{food.veggie}}">
+        </div>
+      </div>
+    </div>
+
+    <div class="field is-grouped">
+      <button id="submit" class="button is-link">Log</button>
+    </div>
+  </form>
+</section>
