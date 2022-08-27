@@ -14,6 +14,20 @@ export const foodMongoStore = {
     return null;
   },
 
+  async searchFoodNames(query) {
+    if (query) {
+      // const foods = await Food.find( {$text: { $search: query }});
+
+      const foods = await Food.find({ name: new RegExp(query, 'i')});
+      console.log("results");
+      console.log(foods);
+      return foods;
+    }
+    return null;
+  },
+
+
+
   async addFood(food) {
 
     const operation = new Food(food);

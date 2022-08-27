@@ -21,6 +21,7 @@ export const dashboardController = {
       const activeAllowance = await db.allowanceStore.getActiveAllowance(userId);
       const date = midnight(new Date);
       const todaysFoods = await db.logStore.getUserFoodsByDate(userId,date);
+      const weights = await db.weightStore.getUserWeights(userId);
       let usersFoods;
       let proteinCount = 0;
       let carbCount = 0;
@@ -54,6 +55,7 @@ export const dashboardController = {
         usersFoods: usersFoods,
         remaining: remaining,
         calories: calories,
+        weights: weights,
       };
       console.log(viewData);
       return h.view("dashboard-view", viewData);
@@ -130,6 +132,24 @@ export const dashboardController = {
       const logObject = await db.logStore.getLogById(request.params.logId);
       await db.logStore.deleteFood(foodId, logId)
       await db.logStore.addFood(logObject, food);
+      return h.redirect("/dashboard");
+    },
+  },
+
+  addWeight: {
+    handler: async function (request, h) {
+      let userId
+      if (db.userStore === userMongoStore) {
+        userId = mongoose.Types.ObjectId(request.state.fitlog.id)
+      } else {
+        userId = request.state.fitlog.id
+      }
+      const weight = request.payload;
+      weight.user = request.state.fitlog.id;
+      const w = await db.weightStore.addWeight(weight);
+      if (w.message) {
+        const errorDetails = [{ message: w.message }];
+      }
       return h.redirect("/dashboard");
     },
   },

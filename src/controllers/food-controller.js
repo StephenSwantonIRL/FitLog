@@ -79,8 +79,17 @@ export const foodController = {
         return Boom.serverUnavailable("Nothing with this id");
       }
     },
+
   },
 
+  searchFood: {
+    handler: async function (request, h) {
+      const query = request.payload.searchValue;
+      const results = await db.foodStore.searchFoodNames(query);
+      console.log(results);
+      return results;
+    },
+  },
 
 
 };

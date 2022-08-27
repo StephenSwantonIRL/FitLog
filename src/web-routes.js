@@ -31,6 +31,9 @@ export const webRoutes = [
   { method: "GET", path: "/deleteLog/{logId}/{foodId}", config: dashboardController.deleteLog },
   { method: "GET", path: "/editLog/{logId}/{foodId}", config: dashboardController.editLog },
   { method: "POST", path: "/editLog/{logId}/{foodId}", config: dashboardController.updateLog },
+  { method: "POST", path: "/addWeight", config: dashboardController.addWeight },
+  { method: "POST", path: "/search", config: foodController.searchFood },
+
 
 
   /*

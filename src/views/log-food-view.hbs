@@ -1,5 +1,79 @@
 {{> menu active="addPlace"}}
 
+<script>
+  let results
+  async function searchFood(){
+    document.getElementById("results").innerText = "";
+    let query = document.getElementById("searchValue").value;
+    results = await fetch("http://localhost:3000/search", {
+      method: "POST",
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ searchValue: query })
+    }).then(data => {
+      return data.json()
+    })
+    .then((x) =>{ return x } );
+
+    return displayResults(results);
+
+
+  }
+  function displayResults(results) {
+    if(results.length>0) {
+      let resultsTable = document.createElement("table")
+      resultsTable.setAttribute("width", "100%");
+      for( let i = 0; i < results.length; i +=1) {
+        let resultRow = document.createElement("tr")
+        resultRow.setAttribute("width", "100%");
+        let resultNameCell = document.createElement("td")
+        let resultNameDiv = document.createElement("div");
+        resultNameDiv.setAttribute("class", "field");
+        resultNameDiv.innerText = results[i].name + " - Standard Quantity: "+ results[i].amount;
+        resultNameCell.append(resultNameDiv);
+        let quantityBoxCell = document.createElement("td");
+        let quantityBoxDiv = document.createElement("div");
+        quantityBoxDiv.setAttribute("class", "field");
+        let quantityLabel = document.createElement("label");
+        quantityLabel.setAttribute("class", "label");
+        quantityLabel.setAttribute("width", "50%");
+        quantityLabel.innerText = "Quantity to Log";
+        let quantityInput = document.createElement("input");
+        quantityInput.setAttribute("class", "input");
+        quantityInput.setAttribute("type", "number");
+        quantityInput.setAttribute("oninput", "updateMacros('"+results[i]._id+"')");
+        quantityInput.setAttribute("placeholder", "Enter multiple of standard portion");
+        quantityInput.setAttribute("id", "quantity-" + results[i]._id);
+
+        quantityBoxDiv.appendChild(quantityLabel);
+        quantityBoxDiv.appendChild(quantityInput);
+        quantityBoxCell.appendChild(quantityBoxDiv);
+        resultRow.appendChild(resultNameCell);
+        resultRow.appendChild(quantityBoxCell);
+
+        resultsTable.appendChild(resultRow);
+      }
+
+      editableContainer = document.getElementById("results")
+      editableContainer.appendChild(resultsTable);
+    }
+  }
+
+  function updateMacros(objectId){
+
+    let multiplier = document.getElementById("quantity-"+objectId).value;
+    let food = results.find((result) => result._id === objectId);
+    console.log(food.name);
+    document.getElementById('protein').value = Number(food.protein) * multiplier;
+    document.getElementById('carbs').value = Number(food.carbs) * multiplier;
+    document.getElementById('fat').value = Number(food.fat) * multiplier;
+    document.getElementById('veggie').value = Number(food.veggie) * multiplier;
+    document.getElementById('name').value = food.name;
+  }
+
+</script>
+
 <section class="section header">
   <h1 class="title">Log a Food</h1>
 </section><section class="section">
@@ -9,19 +83,20 @@
       <div class="field-body">
     <div class="field">
 
-      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" id="searchValue">
-    </div>
-    <div class="field">
-      <label class="label">Quantity</label> <input class="input" type="number" placeholder="Enter multiple of standard portion" id="quantity">
+      <label class="label">Name</label> <input class="input" type="text" oninput="searchFood()" placeholder="Enter Food Name" id="searchValue">
     </div>
       </div>
     </div>
-    <a class="button is-small" onclick="search()">
+    <div><a class="button is-small" onclick="searchFood()">
       Search
-    </a>
+    </a></div>
+    <div class="field-body"id="results">
+
+
+    </div>
     <h2 class="is-title is-3"> <br> ...or enter custom values </h2><br>
     <div class="field">
-      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" name="name">
+      <label class="label">Name</label> <input class="input" type="text" placeholder="Enter Food Name" name="name" id="name">
     </div>
     <div class="field is-horizontal">
       <div class="field-body">
@@ -35,7 +110,7 @@
          <b>Fat:</b> <input class="input" type="text" placeholder="Enter Grams Fat" name="fat" id="fat">
         </div>
         <div class="field">
-         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie" id="veggienpm">
+         <b>Vegetables: </b><input class="input" type="text" placeholder="Enter Portions Veggies" name="veggie" id="veggie">
         </div>
       </div>
     </div>
@@ -44,3 +119,4 @@
     </div>
   </form>
 </section>
+

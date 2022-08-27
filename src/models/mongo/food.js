@@ -15,4 +15,6 @@ const foodSchema = new Schema({
   },
 });
 
+foodSchema.index({ name : 'text' })
+
 export const Food = Mongoose.model("Food", foodSchema);
