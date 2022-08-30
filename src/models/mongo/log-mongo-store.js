@@ -51,6 +51,12 @@ export const logMongoStore = {
 
   },
 
+  async getDatesLoggedByUser(userId) {
+    const logs = await DailyLog.find({ user: userId}).distinct('date');
+    return logs;
+
+  },
+
   async getFoods(id) {
     const log = await DailyLog.findOne({ _id: id }).lean();
     return log.foods;

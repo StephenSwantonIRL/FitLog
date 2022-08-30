@@ -67,24 +67,28 @@
     </thead>
     <tbody>
     <tr>
-      {{#each usersFoods}}
-      <td>{{name}}</td>
-      <td>{{protein}}g</td>
-      <td>{{carbs}}g</td>
-      <td>{{fat}}g</td>
-      <td>{{veggie}}</td>
-      <td>
-        <a class="button is-small" href="/editLog/{{logId}}/{{_id}}">
-          Edit
-        </a> <a class="button is-small" href="/deleteLog/{{logId}}/{{_id}}">
-        Delete
-      </a>
-      </td>
-    </tr>
-      {{/each}}
+    {{#each usersFoods}}
+        <td>{{name}}</td>
+        <td>{{protein}}g</td>
+        <td>{{carbs}}g</td>
+        <td>{{fat}}g</td>
+        <td>{{veggie}}</td>
+        <td>
+          <a class="button is-small" href="/editLog/{{logId}}/{{_id}}">
+            Edit
+          </a> <a class="button is-small" href="/deleteLog/{{logId}}/{{_id}}">
+          Delete
+        </a>
+        </td>
+      </tr>
+    {{/each}}
     </tbody>
   </table>
 </section>
+
+
+{{> days-logged }}
+
 
 {{> log-weight}}
 

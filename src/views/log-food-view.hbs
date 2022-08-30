@@ -42,6 +42,7 @@
         let quantityInput = document.createElement("input");
         quantityInput.setAttribute("class", "input");
         quantityInput.setAttribute("type", "number");
+        quantityInput.setAttribute("step", "0.01");
         quantityInput.setAttribute("oninput", "updateMacros('"+results[i]._id+"')");
         quantityInput.setAttribute("placeholder", "Enter multiple of standard portion");
         quantityInput.setAttribute("id", "quantity-" + results[i]._id);

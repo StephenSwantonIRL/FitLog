@@ -22,6 +22,8 @@ export const dashboardController = {
       const date = midnight(new Date);
       const todaysFoods = await db.logStore.getUserFoodsByDate(userId,date);
       const weights = await db.weightStore.getUserWeights(userId);
+      const datesLoggedByUser = await db.logStore.getDatesLoggedByUser(userId);
+      console.log(datesLoggedByUser);
       let usersFoods;
       let proteinCount = 0;
       let carbCount = 0;
@@ -56,6 +58,7 @@ export const dashboardController = {
         remaining: remaining,
         calories: calories,
         weights: weights,
+        datesLoggedByUser: datesLoggedByUser,
       };
       console.log(viewData);
       return h.view("dashboard-view", viewData);
